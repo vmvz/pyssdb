@@ -17,12 +17,10 @@ import socket
 import functools
 import itertools
 
-
 __version__ = '0.4.1'
 __author__ = 'Yue Du <ifduyue@gmail.com>'
 __url__ = 'https://github.com/ifduyue/pyssdb'
 __license__ = 'BSD 2-Clause License'
-
 
 PY3 = sys.version_info >= (3,)
 
@@ -32,9 +30,11 @@ if PY3:
 else:
     from itertools import izip_longest as zip_longest
 
+
 def utf8(s):
     s = str(s) if isinstance(s, int) else s
     return s.encode('utf8') if isinstance(s, unicode) else s
+
 
 def grouper(iterable, n, fillvalue=None):
     "Collect data into fixed-length chunks or blocks"
@@ -183,8 +183,8 @@ class ConnectionPool(object):
 
     close = disconnect
 
-def command_post_processing(func):
 
+def command_post_processing(func):
     @functools.wraps(func)
     def wrapper(self, cmd, *args):
 
@@ -195,6 +195,7 @@ def command_post_processing(func):
             return data
 
     return wrapper
+
 
 class Client(object):
     def __init__(self, host='127.0.0.1', port=8888, connection_pool=None,
@@ -238,6 +239,7 @@ if __name__ == '__main__':
     print(c.set('key', 'value'))
     print(c.get('key'))
     import string
+
     for i in string.ascii_letters:
         c.incr(i)
     print(c.keys('a', 'z', 1))
